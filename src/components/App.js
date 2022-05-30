@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -6,27 +6,27 @@ import ImagePopup from "./ImagePopup";
 import PopupWithForm from "./PopupWithForm";
 
 function App() {
-const [isEditProfilePopupOpen, setEditProfilePopup] = React.useState(false)
-const [isAddPlacePopupOpen, setAddPlacePopup] = React.useState(false);
-const [isEditAvatarPopupOpen, setEditAvatarPopup] = React.useState(false);
-const [isConfirmPopupOpen, setConfirmPopup] = React.useState(false);
-const [selectedCard, setSelectedCard] = React.useState(null);
+const [isEditProfilePopupOpen, setEditProfilePopup] = useState(false)
+const [isAddPlacePopupOpen, setAddPlacePopup] = useState(false);
+const [isEditAvatarPopupOpen, setEditAvatarPopup] = useState(false);
+const [isConfirmPopupOpen, setConfirmPopup] = useState(false);
+const [selectedCard, setSelectedCard] = useState(null);
 
    
    function handleEditProfileClick () {
-    setEditProfilePopup(!isEditProfilePopupOpen);
+    setEditProfilePopup(true);
    }
 
    function handleAddPlaceClick () {
-    setAddPlacePopup(!isAddPlacePopupOpen);
+    setAddPlacePopup(true);
    }
    function handleEditAvatarClick () {
-    setEditAvatarPopup(!isEditAvatarPopupOpen);
+    setEditAvatarPopup(true);
    }
 
-   function handleConfirmClick () {
-    setConfirmPopup(!isConfirmPopupOpen);
-   }
+  //  function handleConfirmClick () {
+  //   setConfirmPopup(!isConfirmPopupOpen);
+  //  }
 
    function handleCardClick (card) {
        setSelectedCard(card);
@@ -38,7 +38,7 @@ const [selectedCard, setSelectedCard] = React.useState(null);
     setEditProfilePopup(false);
     setAddPlacePopup(false);
     setEditAvatarPopup(false);
-    setSelectedCard(false);
+    setSelectedCard(null);
   }
 
   return (
