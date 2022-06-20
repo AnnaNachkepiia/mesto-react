@@ -4,36 +4,54 @@ import Main from "./Main";
 import Footer from "./Footer";
 import ImagePopup from "./ImagePopup";
 import PopupWithForm from "./PopupWithForm";
+import api from "../utils/API";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function App() {
-const [isEditProfilePopupOpen, setEditProfilePopup] = useState(false)
-const [isAddPlacePopupOpen, setAddPlacePopup] = useState(false);
-const [isEditAvatarPopupOpen, setEditAvatarPopup] = useState(false);
-const [isConfirmPopupOpen, setConfirmPopup] = useState(false);
-const [selectedCard, setSelectedCard] = useState(null);
+  const [isEditProfilePopupOpen, setEditProfilePopup] = useState(false);
+  const [isAddPlacePopupOpen, setAddPlacePopup] = useState(false);
+  const [isEditAvatarPopupOpen, setEditAvatarPopup] = useState(false);
+  const [isConfirmPopupOpen, setConfirmPopup] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [currentUser, setCurrentUser] = useState({});
+  const [card, setCard] = useState([]);
 
-   
-   function handleEditProfileClick () {
+  React.useEffect(() => {
+    api
+    .getInitialData()
+    .then(([userData, card]) => {
+        setCurrentUser(userData);
+        setCard(card);
+    })
+    .catch((err) => console.log(err));
+  }, []);
+
+  function handleEditProfileClick() {
     setEditProfilePopup(true);
-   }
+  }
 
-   function handleAddPlaceClick () {
+  function handleAddPlaceClick() {
     setAddPlacePopup(true);
-   }
-   function handleEditAvatarClick () {
+  }
+  function handleEditAvatarClick() {
     setEditAvatarPopup(true);
-   }
+  }
 
   //  function handleConfirmClick () {
   //   setConfirmPopup(!isConfirmPopupOpen);
   //  }
 
-   function handleCardClick (card) {
-       setSelectedCard(card);
-   }
+  function handleCardClick(card) {
+    setSelectedCard(card);
+  }
+  const handleLikeClick = () => {
+    setSelectedCard(card)
+  };
 
+  const handleDeleteClick =() => {
+    setSelectedCard(card);
+  }
 
- 
   function closeAllPopups() {
     setEditProfilePopup(false);
     setAddPlacePopup(false);
@@ -42,14 +60,18 @@ const [selectedCard, setSelectedCard] = useState(null);
   }
 
   return (
+<CurrentUserContext.Provider value={currentUser}>
     <div className="page">
       <div className="page__container">
         <Header />
-        <Main 
-        onEditProfile={handleEditProfileClick}
-        onAddPlace={handleAddPlaceClick}
-        onEditAvatar={handleEditAvatarClick}
-        onCardClick={handleCardClick}
+        <Main
+          onEditProfile={handleEditProfileClick}
+          onAddPlace={handleAddPlaceClick}
+          onEditAvatar={handleEditAvatarClick}
+          card={card}
+          onCardClick={handleCardClick}
+          onCardLiked={handleLikeClick}
+          onCardDelete={handleDeleteClick}
         />
         <Footer />
         <PopupWithForm
@@ -122,8 +144,7 @@ const [selectedCard, setSelectedCard] = useState(null);
           buttonText="Да"
           isOpen={isConfirmPopupOpen}
           onClose={closeAllPopups}
-        >
-        </PopupWithForm>
+        ></PopupWithForm>
 
         <PopupWithForm
           name="update-avatar"
@@ -147,6 +168,7 @@ const [selectedCard, setSelectedCard] = useState(null);
         <template id="cardTemplate" className="template-place" />
       </div>
     </div>
+    </CurrentUserContext.Provider>
   );
 }
 
