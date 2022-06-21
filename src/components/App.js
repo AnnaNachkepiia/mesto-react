@@ -7,6 +7,7 @@ import PopupWithForm from "./PopupWithForm";
 import api from "../utils/API";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopup] = useState(false);
@@ -63,6 +64,17 @@ function App() {
       .catch((err) => console.log(err));
   }
 
+  function handleUpdateAvatar(avatar) {
+    api
+    .editUserAvatar(avatar)
+    .then((data) => {
+      setCurrentUser(data);
+      closeAllPopups()
+    })
+    .catch((err) => console.log(err));
+
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -82,6 +94,13 @@ function App() {
             onUpdateUser={handleUpdateUser}
           />
 
+          <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
+          
+          />
+          <ImagePopup card={selectedCard} onClose={closeAllPopups} />
           <PopupWithForm
             name="add-card"
             title="Новое место"
@@ -112,9 +131,6 @@ function App() {
             />
             <span className="popup__text-error" id="link-error" />
           </PopupWithForm>
-
-          <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-
           <PopupWithForm
             name="confirm"
             title="Вы уверены?"
@@ -123,25 +139,7 @@ function App() {
             onClose={closeAllPopups}
           ></PopupWithForm>
 
-          <PopupWithForm
-            name="update-avatar"
-            title="Обновить аватар"
-            buttonText="Сохранить"
-            isOpen={isEditAvatarPopupOpen}
-            onClose={closeAllPopups}
-          >
-            <input
-              type="url"
-              name="link"
-              id="avatar-link"
-              placeholder="Ссылка на картинку"
-              className="popup__edit-form popup__edit-form_type_link-avatar"
-              minLength={6}
-              maxLength={200}
-              required
-            />
-            <span className="popup__text-error" id="avatar-link-error" />
-          </PopupWithForm>
+         
           <template id="cardTemplate" className="template-place" />
         </div>
       </div>

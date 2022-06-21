@@ -59,12 +59,12 @@ class Api {
   }
 
   // Заменить аватар (PATCH)
-  editUserAvatar(avatar) {
+  editUserAvatar(link) {
     return fetch(`${this._baseUrl}users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        avatar: avatar["link"],
+        avatar: link.avatar,
       }),
     }).then(this._checkRes);
   }
