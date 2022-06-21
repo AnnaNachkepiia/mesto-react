@@ -5,14 +5,13 @@ import editVector from "../../src/images/VectorEdit.svg";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 
-function Main({ onEditProfile, onAddPlace, onEditAvatar, card, onCardClick, onCardLiked, onCardDelete }) {
+function Main({ onEditProfile, onAddPlace, onEditAvatar, card, onCardClick}) {
 const currentUser = React.useContext(CurrentUserContext);
 
   // const [userName, setUserName] = React.useState("");
   // const [userAbout, setUserAbout] = React.useState("");
   // const [userAvatar, setUserAvatar] = React.useState("");
   const [cards, setCards] = React.useState([]);
-
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
@@ -29,11 +28,12 @@ const currentUser = React.useContext(CurrentUserContext);
 function handleCardDelete(card) {
   api.deleteCard(card._id)
   .then(() => {
-    setCards(cards => cards.filter((c) => c._id != card._id));
+    setCards(cards => cards.filter((c) => c._id !== card._id));
   })
   .catch(err => console.log(err));
 
 }
+ 
 
   return (
     <main className="main">
@@ -66,7 +66,7 @@ function handleCardDelete(card) {
       <section>
         <ul className="places">
           {card.map((card) => (
-            <Card key={card._id} card={card} onCardClick={onCardClick}/>
+            <Card key={card._id} card={card} onCardClick={onCardClick} onCardLike={handleCardLike} onCardDelete={handleCardDelete}/>
           ))}
         </ul>
       </section>

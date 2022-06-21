@@ -88,9 +88,9 @@ class Api {
   // Поставить/убрать лайк
   changeLikeCardStatus(id, isLiked) {
     if (isLiked) {
-      return this.likeHandler(id);
-    } else {
       return this.deleteLikeHandler(id);
+    } else {
+      return this.likeHandler(id); 
     }
   }
 
