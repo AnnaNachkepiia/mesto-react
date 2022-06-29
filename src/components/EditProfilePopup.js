@@ -5,8 +5,8 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
   function EditProfilePopup ({isOpen, onClose, onUpdateUser}) {
     // Подписка на контекст
     const currentUser = React.useContext(CurrentUserContext);
-    const [name, setName] = React.useState('');
-    const [about, setAbout] = React.useState('');
+    const [name, setName] = React.useState("");
+    const [about, setAbout] = React.useState("");
 
 
 
@@ -15,7 +15,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 React.useEffect(() => {
   setName(currentUser.name);
   setAbout(currentUser.about);
-}, [currentUser]); 
+}, [currentUser], [isOpen]); 
 
     function handleNameChange (e) {
 setName(e.target.value);
@@ -56,6 +56,7 @@ return (
             maxLength={30}
             required
             onChange={handleNameChange}
+            value=""
           />
           <span className="popup__text-error" id="profile-name-error" />
           <input
@@ -68,6 +69,7 @@ return (
             maxLength={200}
             required
             onChange={handleAboutChange}
+            value=""
           />
           <span className="popup__text-error" id="about-error" />
         </PopupWithForm>)
