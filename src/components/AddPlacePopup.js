@@ -42,7 +42,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         maxLength={30}
         required
         onChange={handleNameInput}
-        value=""
+        value={cardName}
       />
       <span className="popup__text-error" id="card-name-error" />
       <input
@@ -55,7 +55,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         maxLength={200}
         required
         onChange={handleLinkInput}
-        value=""
+        value={cardLink}
       />
       <span className="popup__text-error" id="link-error" />
     </PopupWithForm>

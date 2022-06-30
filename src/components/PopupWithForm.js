@@ -8,7 +8,6 @@ return (
             type="button" className={`popup__close popup__close_${name}`} />
             <h2 className="popup__title"> {title} </h2>
             <form
-              name="popup-edit-form"
               className={`popup__form-container popup__form-container_type_${name}`}
               noValidate
               onSubmit={onSubmit}

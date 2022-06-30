@@ -56,7 +56,7 @@ return (
             maxLength={30}
             required
             onChange={handleNameChange}
-            value=""
+            value={name || ''}
           />
           <span className="popup__text-error" id="profile-name-error" />
           <input
@@ -69,7 +69,7 @@ return (
             maxLength={200}
             required
             onChange={handleAboutChange}
-            value=""
+            value={about || ''}
           />
           <span className="popup__text-error" id="about-error" />
         </PopupWithForm>)
