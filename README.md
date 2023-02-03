@@ -20,6 +20,5 @@
 
 ### Установка и запуск проекта:
 - Клонировать репозиторий: `git clone `
-- `npm i webpack --save-dev`
-- `npm run build`
-- `npm run dev`
+- `npm install`
+- `npm start`
